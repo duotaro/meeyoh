@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import Nav from '@/component/nav'
 import Welcom from '@/component/welcom'
+import Footer from '@/component/footer'
 import Script from 'next/script'
 const inter = Inter({ subsets: ['latin'] })
 
@@ -35,9 +36,13 @@ export default function RootLayout({
       </head>
       <body className={inter.className}>
         
+        
         <Nav />
-        <Welcom />
+        <main>
         {children}
+        </main>
+        <Footer />
+        <a href="#" className="back-to-top d-flex align-items-center justify-content-center"><i className="bi bi-arrow-up-short"></i></a>    
         
         <Script src="/vendor/purecounter/purecounter_vanilla.js"></Script>
         <Script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></Script>
