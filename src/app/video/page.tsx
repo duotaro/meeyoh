@@ -1,28 +1,23 @@
 import Link from "next/link";
 import { getMeeYohPlayListItems, PlayListItem, PlayListItems, PlayListItemsResponse } from "@/lib/youtube";
 import YoutubeItem from "@/component/youtube";
+import MovieModal from "@/component/movieModal";
 
-export default async function Home() {
+export default async function Video() {
   const playList:PlayListItems = await get();
 
   return (
     <>
     {playList.map((item:PlayListItem) => {
-        // const date = new Date(post.last_edited_time).toLocaleString(
-        //   "ja",
-        //   {
-        //     month: "short",
-        //     day: "2-digit",
-        //     year: "numeric",
-        //   }
-        // );
+        const videoId = item.snippet.resourceId.videoId
+        const thumbnail = item.snippet.thumbnails.medium.url
         return (
           <>
-            <Link href={`/video/${item.snippet.resourceId.videoId}/`} >{item.snippet.title}</Link>
-            <p>{item.snippet.resourceId.videoId}</p>
-            <p>https://www.youtube.com/watch?v={item.snippet.resourceId.videoId}</p>
-            <img src={item.snippet.thumbnails.medium.url} />
-            <YoutubeItem videoId={item.snippet.resourceId.videoId} />
+            <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target={`#movieModal-${videoId}`}>
+              Launch demo modal
+            </button>
+            <img src={thumbnail} />
+            <MovieModal videoId={videoId} />
           </>
         )
     })}

@@ -1,5 +1,8 @@
 import ENV from '@/utils/env'
 
+/**
+ * youtube data api base URL
+ */
 const baseApiUrl = 'https://www.googleapis.com/youtube/v3/'
 
 /**
@@ -17,6 +20,10 @@ export type Thumbnails = {
     width: Number,
     height: Number
 }
+
+/*************************************************************************
+ *  プレイリスト一覧取得
+ *************************************************************************/
 
 export type PlayListResponse = {
     kind: string,
@@ -50,6 +57,10 @@ export const MEE_YOH_PLAYLIST_ID:string = ENV.MEE_YOH_PLAYLIST_ID ? ENV.MEE_YOH_
 export const getMeeYohPlayList = async () => {
     return getPlayList([MEE_YOH_PLAYLIST_ID])
 }
+
+/*************************************************************************
+ *  プレイリストアイテム一覧取得
+ *************************************************************************/
 
 export type PlayListItemsResponse = {
     kind: string,
@@ -99,12 +110,16 @@ export type PlayListItem = {
 
 
 
-export const getPlayListItemsUrl = (id:string) => {
-    return `${baseApiUrl}playlistItems?playlistId=${id}&key=${apiKey}&part=id,snippet,contentDetails,status`
+export const getPlayListItemsUrl = (playlistId:string, id?:string) => {
+    let url =`${baseApiUrl}playlistItems?playlistId=${playlistId}&key=${apiKey}&part=id,snippet,contentDetails,status`
+    if(id){
+        url += `&id=${id}`
+    }
+    return url
 }
 
-export const getPlayListItems = async (id:string) => {
-    const apiUrl = getPlayListItemsUrl(id)
+export const getPlayListItems = async (playlistId:string, id?:string) => {
+    const apiUrl = getPlayListItemsUrl(playlistId, id)
     const res:Response = await fetch(apiUrl)
     const json = await res.json()
     return json
@@ -112,5 +127,9 @@ export const getPlayListItems = async (id:string) => {
 
 export const getMeeYohPlayListItems = async () => {
     return getPlayListItems(MEE_YOH_PLAYLIST_ID)
+}
+
+export const getMeeYohDetail = async (videoId:string) => {
+    return getPlayListItems(MEE_YOH_PLAYLIST_ID, videoId)
 }
 
