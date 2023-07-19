@@ -13,10 +13,7 @@ export default async function Video() {
         const thumbnail = item.snippet.thumbnails.medium.url
         return (
           <>
-            <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target={`#movieModal-${videoId}`}>
-              Launch demo modal
-            </button>
-            <img src={thumbnail} />
+            <img src={thumbnail} data-bs-toggle="modal" data-bs-target={`#movieModal-${videoId}`} />
             <MovieModal videoId={videoId} />
           </>
         )
