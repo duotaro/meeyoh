@@ -22,13 +22,7 @@ export default function Storage() {
     const adminPassword = process.env.NEXT_PUBLIC_ADMIN_PASSWORD || ''
 
     let config = firebaseConfig
-    console.log("◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇")
     if(!firebaseConfig || !firebaseConfig.storageBucket){
-        console.log(ENV)
-        console.log("-----------------")
-
-        console.log(process.env)
-        console.log("-----------------")
         config = {
             apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
             authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
@@ -49,11 +43,6 @@ export default function Storage() {
 
     // adminでログインしちゃう
     signInWithEmailAndPassword(auth, adminEmailAddress, adminPassword).then((res) => {
-        console.log(firebaseConfig)
-        console.log(firebase)
-        console.log(firebaseStorage)
-        console.log("◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇")
-
         let resUser:User = res.user;
         if(!resUser){
             dispatch({type: SET_LOADING, value: false})
@@ -63,7 +52,6 @@ export default function Storage() {
     
         download(firebaseStorage, "profile_images/test1.png").then((result) => {
           dispatch({type: SET_LOADING, value: false})
-          console.log(result)
           setUrl(result!)
         }).catch((error) => {
           dispatch({type: SET_LOADING, value: false})
@@ -73,7 +61,6 @@ export default function Storage() {
 
         downloadList(firebaseStorage, "profile_images").then((result) => {
             dispatch({type: SET_LOADING, value: false})
-            console.log(result)
             //setUrl(result!)
           }).catch((error) => {
             dispatch({type: SET_LOADING, value: false})
@@ -83,7 +70,7 @@ export default function Storage() {
 
           downloadList(firebaseStorage, "videos").then((result) => {
             dispatch({type: SET_LOADING, value: false})
-            console.log(result)
+            //console.log(result)
             //setUrl(result!)
           }).catch((error) => {
             dispatch({type: SET_LOADING, value: false})

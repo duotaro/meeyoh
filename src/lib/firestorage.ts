@@ -80,16 +80,16 @@ export const downloadList = async (storage:FirebaseStorage, rootPath:string, pag
     }
     try {
         const res:ListResult = pageSize ? await list(getReference(storage, rootPath), {}) : await listAll(getReference(storage, rootPath))
-        console.log(res)
-        res.items.forEach((itemRef:StorageReference) => {
-            console.log(itemRef.toString())
-            console.log(itemRef.root)
-            console.log(itemRef.bucket)
-            console.log(itemRef.fullPath)
-            console.log(itemRef.name)
-            console.log(itemRef.storage)
-            console.log(itemRef.parent)
-        });
+        //console.log(res)
+        // res.items.forEach((itemRef:StorageReference) => {
+        //     console.log(itemRef.toString())
+        //     console.log(itemRef.root)
+        //     console.log(itemRef.bucket)
+        //     console.log(itemRef.fullPath)
+        //     console.log(itemRef.name)
+        //     console.log(itemRef.storage)
+        //     console.log(itemRef.parent)
+        // });
         const result:FirebaseStorageResult = {
             storage: storage,
             rootPath: rootPath,

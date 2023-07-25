@@ -1,7 +1,6 @@
 import { supabase } from "./supabase"
 import Utils from "@/utils/utils"
-
-const baseBucketName:string = "duotaro"
+import { SupabaseSearchParam, SupabaseSearchOption, convertFileObject, SupabaseFileObject } from "./supabaseEntity"
 
 /**
  * 新規bucket作成
@@ -26,33 +25,9 @@ const createBucket = async (bucketName:string = 'NoName') => {
     
 }
 
-
-
-export class SupabaseSearchParam {
-    bucketName:string = baseBucketName
-    targetFolder:string = "images"
-    page:number = 1
-    pageSize:number = 20
-    sort:SupabaseSearchSortParam = {column:'modified_at', order:'desc'}
-    search?:string 
-}
-
-export class SupabaseSearchSortParam {
-    column:string = 'modified_at'
-    order:string = "desc"
-}
-
-class SupabaseSearchOption {
-    limit:number = 20
-    offset:number = 0
-    sortBy?:SupabaseSearchSortParam
-    search?:string 
-}
-
-
 export const list = async (param:SupabaseSearchParam) => {
     if(!param.bucketName || !param.targetFolder){
-        return null
+        return []
     }
     let offset
     if(!param.page){
@@ -74,18 +49,48 @@ export const list = async (param:SupabaseSearchParam) => {
     }
 
 
-
+    const list = await supabase
+    .storage
+    .from(param.bucketName)
+    .list(param.targetFolder, opt)
 
     const { data, error } = await supabase
         .storage
         .from(param.bucketName)
         .list(param.targetFolder, opt)
 
+        
+
+
     if(error && !data){
         Utils.errorMessage(error.message)
         return null
     } else {
-        return data
-    }
 
+        let res:SupabaseFileObject[] = []
+
+        for (let item of data) {
+            let obj:SupabaseFileObject = convertFileObject(item)
+            res.push(obj)
+        }
+
+        if(param.getDetail){
+            for await (let item of res) {
+                const { publicUrl } = await findPublicUrl(param.bucketName, param.targetFolder, item.name)
+                item.public_url = publicUrl
+            }
+            return res
+        }
+        return res
+    }
+}
+
+
+export const findPublicUrl = async (backetName:string, filePath:string, fileName:string) => {
+    const { data } = await supabase
+        .storage
+        .from(backetName)
+        .getPublicUrl(`${filePath}/${fileName}`)
+
+    return data
 }
