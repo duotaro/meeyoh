@@ -1,14 +1,14 @@
 import { supabase } from "./supabase"
 import Utils from "@/utils/utils"
 import { SupabaseSearchParam, SupabaseSearchOption, convertFileObject, SupabaseFileObject } from "./supabaseEntity"
-
+import { PNG, MP4 } from "@/utils/const"
 /**
  * 新規bucket作成
  */
 const createBucket = async (bucketName:string = 'NoName') => {
     let opt = {
       public: false,
-      allowedMimeTypes: ['image/png', 'video/mp4'],
+      allowedMimeTypes: [PNG, MP4],
       fileSizeLimit: 1024
     }
 
