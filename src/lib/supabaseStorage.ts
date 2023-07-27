@@ -1,7 +1,8 @@
 import { supabase } from "./supabase"
 import Utils from "@/utils/utils"
-import { SupabaseSearchParam, SupabaseSearchOption, convertFileObject, SupabaseFileObject } from "./supabaseEntity"
+import { SupabaseSearchParam, SupabaseSearchOption, convertFileObject, SupabaseFileObject, convertFileObjectFromSupabase } from "./supabaseEntity"
 import { PNG, MP4 } from "@/utils/const"
+import { MeeYohFile } from "@/utils/entity"
 /**
  * 新規bucket作成
  */
@@ -25,7 +26,7 @@ const createBucket = async (bucketName:string = 'NoName') => {
     
 }
 
-export const list = async (param:SupabaseSearchParam) => {
+export const getSpabaseList = async (param:SupabaseSearchParam) => {
     if(!param.bucketName || !param.targetFolder){
         return []
     }
@@ -79,9 +80,13 @@ export const list = async (param:SupabaseSearchParam) => {
                 const { publicUrl } = await findPublicUrl(param.bucketName, param.targetFolder, item.name)
                 item.public_url = publicUrl
             }
-            return res
         }
-        return res
+
+
+        const fileList:MeeYohFile[] = res.map((file:SupabaseFileObject)=>{
+            return convertFileObjectFromSupabase(file)
+        })
+        return fileList
     }
 }
 

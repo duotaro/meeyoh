@@ -1,9 +1,9 @@
 import './globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
-import Nav from '@/component/nav'
-import Welcom from '@/component/welcom'
-import Footer from '@/component/footer'
+import Nav from '@/component/common/nav'
+import Welcom from '@/component/page/welcom'
+import Footer from '@/component/common/footer'
 import Script from 'next/script'
 import { FirebaseContextProvider } from '@/context/firebase.context'
 const inter = Inter({ subsets: ['latin'] })

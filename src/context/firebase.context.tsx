@@ -4,7 +4,7 @@ import React, { Dispatch, createContext, useReducer, useContext, useEffect } fro
 import { initializeFirebaseApp, firebaseConfig } from '../lib/firebase'
 import { getAuth, User, onAuthStateChanged, Auth } from "firebase/auth";
 import { FirebaseStorage } from "firebase/storage";
-import Loading from "@/component/loading";
+import Loading from "@/component/common/loading";
 import { FirebaseApp } from "firebase/app";
 
 type StateType = {

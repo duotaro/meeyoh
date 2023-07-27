@@ -1,3 +1,6 @@
+import { PNG, MP4, CATEGORY_IMAGE, CATEGORY_VIDEO } from "@/utils/const"
+import { MeeYohFile } from "@/utils/entity"
+
 export const baseBucketName:string = "duotaro"
 
 export class SupabaseSearchParam {
@@ -45,6 +48,21 @@ export class SupabaseFileObject{
     httpStatusCode: ''
   }
   public_url?:string
+}
+
+export const convertFileObjectFromSupabase = (obj:SupabaseFileObject):MeeYohFile => {
+    let type:string = '';
+    if(obj.metadata){
+        type = obj.metadata!.mimetype.indexOf(PNG) > -1 ? PNG : MP4
+    }
+    let category:string[] = []
+    if(type == PNG) {
+        category.push(CATEGORY_IMAGE)
+    } else {
+        category.push(CATEGORY_VIDEO)
+    }
+    return new MeeYohFile(obj.public_url!, category, type)
+    
 }
 
 export class SupabaseFileObjectMetadata {

@@ -1,7 +1,7 @@
 'use client'
 import "./modal.css"
 import { getMeeYohPlayListItems, getMeeYohDetail, PlayListItem, PlayListItems, PlayListItemsResponse} from "@/lib/youtube";
-import YoutubeItem from "@/component/youtube";
+import YoutubeItem from "@/component/page/youtube";
 
 export default function MovieModal({videoId}:{
     videoId:string

@@ -331,8 +331,9 @@ h6 {
 #hero {
   width: 100%;
   height: 75vh;
-  background: url("/hero-bg.jpg") top center;
-  background-size: cover;
+  background: url("/img/top-bg.png") top center;
+  background-size: contain;
+  background-repeat: no-repeat;
   padding: 0 15px;
 }
 
@@ -341,11 +342,11 @@ h6 {
   font-size: 48px;
   font-weight: 700;
   line-height: 56px;
-  color: #fff;
+  color: black;
 }
 
 #hero h2 {
-  color: #eee;
+  color: lightgray;
   margin-bottom: 10px;
   font-size: 24px;
   font-weight: 300;
@@ -355,7 +356,7 @@ h6 {
 #hero .btn-get-started {
   font-size: 64px;
   transition: 0.5s;
-  color: #fff;
+  color: lightgray;
   height: 60px;
 }
 
@@ -369,10 +370,33 @@ h6 {
     background-attachment: fixed;
   }
 }
+@media (max-width: 1024px) {
+  #hero{
+    height: 50vh;
+  }
 
-@media (max-width: 768px) {
   #hero h1 {
-    font-size: 28px;
+    font-size: 30px;
+  }
+
+
+  #hero .btn-get-started {
+    font-size: 48px;
+  }
+  
+}
+@media (max-width: 768px) {
+  #hero {
+    height: 40vh;
+  }
+
+  #hero .btn-get-started {
+    font-size: 24px;
+  }
+
+  #hero h1 {
+    margin: 0 0 5px 0;
+    font-size: 24px;
     line-height: 36px;
   }
 
@@ -533,7 +557,7 @@ section {
 }
 
 .about .image {
-  background: url("/me.jpg") center center no-repeat;
+  /* background: url("/me.jpg") center center no-repeat; */
   background-size: cover;
   min-height: 400px;
 }
@@ -1171,3 +1195,19 @@ section {
   text-align: center;
   font-size: 13px;
 }
+
+/*--------------------------------------------------------------
+# mask
+--------------------------------------------------------------*/
+
+/* .mask {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-attachment: fixed;
+} */

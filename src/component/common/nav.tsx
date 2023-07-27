@@ -1,3 +1,4 @@
+import { MEE_NAME, YOH_NAME } from "@/utils/const";
 
 
 export default function Nav() {
@@ -15,8 +16,8 @@ export default function Nav() {
           <li><a className="nav-link scrollto active" href="#hero">Home</a></li>
           <li className="dropdown"><a href="#about"><span>About</span> <i className="bi bi-chevron-down"></i></a>
             <ul>
-              <li><a href="#about-misaki">Misaki</a></li>
-              <li><a href="#about-yota">Yota</a></li>
+              <li><a href={`#about-${MEE_NAME}`}>{MEE_NAME}</a></li>
+              <li><a href={`#about-${YOH_NAME}`}>{YOH_NAME}</a></li>
             </ul>
           </li>
           <li><a className="nav-link scrollto" href="#portfolio">Portfolio</a></li>
