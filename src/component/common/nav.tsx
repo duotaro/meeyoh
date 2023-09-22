@@ -7,7 +7,7 @@ export default function Nav() {
     <div className="container d-flex align-items-center justify-content-between">
 
       <div className="logo">
-        <h1><a href="index.html">MeeYoh</a></h1>
+        <h1><a href="/">MeeYoh</a></h1>
         {/* <a href="index.html"><img src="/vercel.svg" alt="" className="img-fluid" /></a> */}
       </div>
 

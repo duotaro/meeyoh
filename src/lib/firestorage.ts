@@ -11,6 +11,7 @@ export const imageRootPath = "images"
 
 
 
+
 // Initialize Cloud Storage and get a reference to the service
 export const initFirebaseStorage = ():FirebaseStorage => {
     const app = initializeFirebaseApp(firebaseConfig);

@@ -557,8 +557,8 @@ section {
 }
 
 .about .image {
-  /* background: url("/me.jpg") center center no-repeat; */
   background-size: cover;
+  text-align: center;
   min-height: 400px;
 }
 

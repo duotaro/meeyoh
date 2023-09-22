@@ -1,5 +1,5 @@
 import { getMeeYohPlayListItems, getMeeYohDetail, PlayListItem, PlayListItems, PlayListItemsResponse} from "@/lib/youtube";
-import YoutubeItem from "@/component/youtube";
+import YoutubeItem from "@/component/page/youtube";
 
 export default async function VideoDetail({
   params:{videoId}

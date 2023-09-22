@@ -61,7 +61,7 @@ export const convertFileObjectFromSupabase = (obj:SupabaseFileObject):MeeYohFile
     } else {
         category.push(CATEGORY_VIDEO)
     }
-    return new MeeYohFile(obj.public_url!, category, type)
+    return new MeeYohFile(obj.public_url!, category, "", type)
     
 }
 

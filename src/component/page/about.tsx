@@ -9,16 +9,20 @@ export default function About({name}:{
   // profileObj取得
   const profile = getProfile(name)
 
+  const imageStyle = {
+    "background": `url(${profile.iconImg}) center center no-repeat;`,
+    "background-size": "cover;"
+  }
+
     return (
       <section id={`about-${name}`} className={`about`} >
-        <div className="container bg-image">
-          <span className={`mask  ${profile.overlayColor}`} style={{opacity:'0.1'}}></span>
-          <div className={`row no-gutters w-100`}>
+        <div className="container bg-image p-0 m-0">
+          {/* <span className={`mask  ${profile.overlayColor}`} style={{opacity:'0.1'}}></span> */}
+          <div className={`row no-gutters w-100 m-0`}>
             {/* <span className={`mask opacity-25 ${profile.overlayColor}`} style={{opacity:'0.1'}}></span> */}
-            <div className="image col-xl-5 d-flex align-items-stretch justify-content-center justify-content-lg-start">
-              <img src={profile.iconImg} alt={profile.id} />
+            <div className="image col-xl-5 d-flex align-items-stretch justify-content-center justify-content-lg-start" style={imageStyle}>
             </div>
-            <div className="col-xl-7 ps-0 ps-lg-5 pe-lg-1 d-flex align-items-stretch">
+            <div className="col-xl-7 ps-lg-5 pe-lg-1 d-flex align-items-stretch">
               <div className="content d-flex flex-column justify-content-center">
                 <h3>{profile.name_english}</h3>
                 <p>

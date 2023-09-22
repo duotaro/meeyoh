@@ -1,5 +1,5 @@
 'use client'
-import "./modal.css"
+
 import { getMeeYohPlayListItems, getMeeYohDetail, PlayListItem, PlayListItems, PlayListItemsResponse} from "@/lib/youtube";
 import YoutubeItem from "@/component/page/youtube";
 

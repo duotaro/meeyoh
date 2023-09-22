@@ -3,20 +3,51 @@ import { FILE_CATEGORY, CATEGORY_ALL } from '@/utils/const'
 import { useState } from 'react'
 import PortfolioItem from './portfolioItem';
 import { MeeYohFile } from '@/utils/entity';
+import { fileList } from '@/lib/cloudflare'
 
 export default function PortfolioList({list}:{
   list:MeeYohFile[]
 }) {
     const [portfolioList, setPortfolioList] = useState<MeeYohFile[]>(list);
+    const [videoList, setVideoList] = useState<MeeYohFile[]>(fileList);
     const [activeCategory, setActiveCategory] = useState<string>(CATEGORY_ALL);
 
 
     const clickHandlerCategory = (e:React.MouseEvent<HTMLButtonElement>, category:string) => {
         e.preventDefault()
 
+        alert("clickHandlerCategory.category => "  +  category)
+
         // リストフィルター
+        if(FILE_CATEGORY.indexOf(category) < 0 || CATEGORY_ALL == category){
+          alert("nothing/"  +  category)
+          setPortfolioList(list)
+          setVideoList(fileList)
+          setActiveCategory(CATEGORY_ALL)
+          return
+        }
 
+        setActiveCategory(category)
 
+        let resultPortfolioList:MeeYohFile[] = []
+        list.map((portfolio) => {
+          console.log(portfolio.category)
+          if(portfolio.category.indexOf(category) > -1){
+            resultPortfolioList.push(portfolio)
+          }
+        })
+        console.log(resultPortfolioList)
+        setPortfolioList(resultPortfolioList)
+
+        let resultVideoList:MeeYohFile[] = []
+        fileList.map((video) => {
+          console.log(video.category)
+          if(video.category.indexOf(category) > -1){
+            resultVideoList.push(video)
+          }
+        })
+        console.log(resultVideoList)
+        setVideoList(resultVideoList)
     }
 
     const matchCategory = (category:string) => {
@@ -160,6 +191,13 @@ export default function PortfolioList({list}:{
               </div>
             </div>
           </div>
+
+           {/* ここから映像  */}
+          {videoList.map((video:MeeYohFile)=>{
+            return (
+              <PortfolioItem portfolio={video} key={video.path}/>
+            )
+          })}
         </div>
       </>
 )}

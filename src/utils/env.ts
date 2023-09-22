@@ -25,7 +25,7 @@ const MEE_BIRTHDAY = process.env.NEXT_PUBLIC_MEE_BIRTHDAY || process.env.MEE_BIR
 const YOH_NAME = process.env.NEXT_PUBLIC_YOH_NAME || process.env.YOH_NAME
 const YOH_NAME_ENG = process.env.NEXT_PUBLIC_YOH_NAME_ENG || process.env.YOH_NAME_ENG
 const YOH_NAME_ENG_SHORT = process.env.NEXT_PUBLIC_YOH_NAME_ENG_SHORT || process.env.YOH_NAME_ENG_SHORT
-const YOH_BIRTHDAY = process.env.NEXT_PUBLIC_CYOH_BIRTHDAY || process.env.YOH_BIRTHDAY
+const YOH_BIRTHDAY = process.env.NEXT_PUBLIC_YOH_BIRTHDAY || process.env.YOH_BIRTHDAY
 
 
 const ENV = {

@@ -82,6 +82,8 @@ export const getSpabaseList = async (param:SupabaseSearchParam) => {
             }
         }
 
+        console.log("here")
+        console.log(res)
 
         const fileList:MeeYohFile[] = res.map((file:SupabaseFileObject)=>{
             return convertFileObjectFromSupabase(file)

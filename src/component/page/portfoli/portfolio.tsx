@@ -1,13 +1,14 @@
 
-import Image from 'next/image'
 import PortfolioList from './portfolioList'
 import { getSpabaseList } from '@/lib/supabaseStorage'
 import { SUPABASE_SORT, SupabaseSearchParam, baseBucketName, SupabaseFileObject} from '@/lib/supabaseEntity'
-import { MeeYohFile } from '@/utils/entity'
+
 
 export default async function Portfolio() {
 
   const list = await get() || []
+
+  console.log(list)
 
   return (
       <section id="portfolio" className="portfolio section-bg">
@@ -36,7 +37,12 @@ const get = async () => {
     getDetail: true
   }
 
+  // supabaseから取得
   let res = await getSpabaseList(param)
-  return res
+  if(!res){
+    res = []
+  }
 
+  return res
 }
+

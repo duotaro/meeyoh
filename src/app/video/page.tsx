@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { getMeeYohPlayListItems, PlayListItem, PlayListItems, PlayListItemsResponse } from "@/lib/youtube";
-import YoutubeItem from "@/component/youtube";
-import MovieModal from "@/component/movieModal";
+import YoutubeItem from "@/component/page/youtube";
+import MovieModal from "@/component/page/movieModal";
 
 export default async function Video() {
   const playList:PlayListItems = await get();
@@ -18,6 +18,7 @@ export default async function Video() {
           </>
         )
     })}
+    <video controls src="https://pub-06900595aaf543b1af0a94853cb05c88.r2.dev/meeyoh/production/media/misaki_bread.m4v"></video>
     </>
   )
 }
