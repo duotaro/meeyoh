@@ -1,5 +1,6 @@
 import { getMeeYohPlayListItems, getMeeYohDetail, PlayListItem, PlayListItems, PlayListItemsResponse} from "@/lib/youtube";
 import YoutubeItem from "@/component/page/youtube";
+import { YoutubeOption } from "@/component/page/youtube";
 
 export default async function VideoDetail({
   params:{videoId}
@@ -8,13 +9,19 @@ export default async function VideoDetail({
 }) {
   const item:PlayListItem = await get(videoId);
 
+  // 音源をここで作成する。音源ファイルを持ってもいいし、apiで取得してもいいし、youtubeでもいい
+  // youtubeでできるか確認する
+
+
+  let option:YoutubeOption = new YoutubeOption()
+
   return (
     <>
       <a href={`https://www.youtube.com/watch?${item.snippet.resourceId.videoId}`} >{item.snippet.title}</a>
       <p>{item.snippet.resourceId.videoId}</p>
       <p>https://www.youtube.com/watch?{item.snippet.resourceId.videoId}</p>
       <img src={item.snippet.thumbnails.medium.url} />
-      <YoutubeItem videoId={item.snippet.resourceId.videoId} />
+      <YoutubeItem videoId={item.snippet.resourceId.videoId} option={option}/>
     </>
   )
 }

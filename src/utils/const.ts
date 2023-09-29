@@ -5,6 +5,7 @@ export const YOH_NAME = ENV.YOH_NAME_ENG_SHORT || ''
 
 export const PNG:string = "image/png"
 export const MP4:string = 'video/mp4'
+export const YOUTUBE:string = 'youtube'
 
 export const FILE_TYPE:string[] = [
     PNG,MP4

@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { getMeeYohPlayListItems, PlayListItem, PlayListItems, PlayListItemsResponse } from "@/lib/youtube";
-import YoutubeItem from "@/component/page/youtube";
 import MovieModal from "@/component/page/movieModal";
 
 export default async function Video() {
@@ -18,7 +17,7 @@ export default async function Video() {
           </>
         )
     })}
-    <video controls src="https://pub-06900595aaf543b1af0a94853cb05c88.r2.dev/meeyoh/production/media/misaki_bread.m4v"></video>
+    {/* <video controls src="https://pub-06900595aaf543b1af0a94853cb05c88.r2.dev/meeyoh/production/media/misaki_bread.m4v"></video> */}
     </>
   )
 }
@@ -38,30 +37,6 @@ async function get() {
     return []
   }
   
-  console.log("◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇")
-  console.log(res)
-  playlistItems.map((item) => {
-    console.log(item)
-    console.log(item.snippet)
-  })
-  console.log("◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇")
   return res.items
 }
-  
-// https://www.youtube.com/watch?v=FNeJDIHxLOs&list=PL2ufUyfB4mVqiwmWKNu3k_73bmyJ5BR30
-  // export const generateStaticParams:GetStaticProps = async ({
-  //   params,
-  // }: GetStaticPropsContext) => {
-  //   //const { genre } = params!.id
-
-  //   let res = await getMeeYohPlayLists();
-
-  //   // フィルターは？？
-  //   return {
-  //     props: {
-  //       playList: res.items
-  //     },
-  //     revalidate: 1,
-  //   };
-  // };
   

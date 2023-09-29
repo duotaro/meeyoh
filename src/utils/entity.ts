@@ -1,6 +1,6 @@
 import { 
     PNG, MP4, MEE_NAME, YOH_NAME,
-    CATEGORY_MEE,CATEGORY_OTHER,CATEGORY_YOH,CATEGORY_IMAGE,CATEGORY_VIDEO
+    CATEGORY_MEE,CATEGORY_OTHER,CATEGORY_YOH,CATEGORY_IMAGE,CATEGORY_VIDEO, YOUTUBE
 } from "@/utils/const"
 
 
@@ -22,14 +22,17 @@ export class MeeYohFile {
       // type
       if(type){
         this.type = type
+        if(type == YOUTUBE){
+            category?.push(CATEGORY_VIDEO)
+        } 
       } else {
         if(path.indexOf(`.png`) > -1){
             this.type = PNG
             category?.push(CATEGORY_IMAGE)
-        } else if(path.indexOf(`.mp4`) > -1){
+        } else if(path.indexOf(`.mp4`) > -1 ){
             this.type = MP4
             category?.push(CATEGORY_VIDEO)
-        } else {
+        }else {
             this.type = ''
             category?.push(CATEGORY_OTHER)
         }

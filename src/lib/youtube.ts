@@ -3,6 +3,10 @@ import ENV from '@/utils/env'
 /**
  * youtubeは非公開でも音楽が著作権に引っかかると音声なしになってしまうっぽいのでダメかな
  * 音楽なしとか、自作とかフリーを使うとかでならアリかも
+ * youtubeの場合は、音楽なしにして、再生とか停止に合わせてBGMのON/OFFを実装する
+ * https://www.webdesignleaves.com/pr/jquery/javascript-audio.html
+ * https://shanabrian.com/web/javascript/video-event.php
+ * 
  */
 
 /**

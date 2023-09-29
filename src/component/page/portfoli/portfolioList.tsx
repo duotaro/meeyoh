@@ -1,15 +1,20 @@
 'use client'
-import { FILE_CATEGORY, CATEGORY_ALL } from '@/utils/const'
+import { FILE_CATEGORY, CATEGORY_ALL, MP4 } from '@/utils/const'
 import { useState } from 'react'
 import PortfolioItem from './portfolioItem';
 import { MeeYohFile } from '@/utils/entity';
 import { fileList } from '@/lib/cloudflare'
+import { PlayListItem } from "@/lib/youtube";
+import MovieModal from "@/component/page/movieModal";
 
-export default function PortfolioList({list}:{
+export default function PortfolioList({list, playList}:{
   list:MeeYohFile[]
+  playList:PlayListItem[]
 }) {
+
     const [portfolioList, setPortfolioList] = useState<MeeYohFile[]>(list);
     const [videoList, setVideoList] = useState<MeeYohFile[]>(fileList);
+    const [youtubeItems, setYoutubeItems] = useState<PlayListItem[]>(playList);
     const [activeCategory, setActiveCategory] = useState<string>(CATEGORY_ALL);
 
 
@@ -29,25 +34,33 @@ export default function PortfolioList({list}:{
 
         setActiveCategory(category)
 
+        // 写真
         let resultPortfolioList:MeeYohFile[] = []
         list.map((portfolio) => {
-          console.log(portfolio.category)
           if(portfolio.category.indexOf(category) > -1){
             resultPortfolioList.push(portfolio)
           }
         })
-        console.log(resultPortfolioList)
         setPortfolioList(resultPortfolioList)
 
+        // 映像
         let resultVideoList:MeeYohFile[] = []
         fileList.map((video) => {
-          console.log(video.category)
           if(video.category.indexOf(category) > -1){
             resultVideoList.push(video)
           }
         })
-        console.log(resultVideoList)
         setVideoList(resultVideoList)
+
+
+        // youtube
+        let resultYoutubeList:PlayListItem[] = []
+        playList.map((youtube) => {
+          if(category == MP4){
+            resultYoutubeList.push(youtube)
+          }
+        })
+        setYoutubeItems(resultYoutubeList)
     }
 
     const matchCategory = (category:string) => {
@@ -195,7 +208,21 @@ export default function PortfolioList({list}:{
            {/* ここから映像  */}
           {videoList.map((video:MeeYohFile)=>{
             return (
+              // youtubeかそうでないかで分ける、
               <PortfolioItem portfolio={video} key={video.path}/>
+            )
+          })}
+          {youtubeItems.map((item:PlayListItem)=>{
+            const videoId = item.snippet.resourceId.videoId
+            const thumbnail = item.snippet.thumbnails.medium.url
+            return (
+              
+              <div className="col-lg-4 col-md-6 portfolio-item filter-app" key={videoId}>
+                <div className="">
+                  <img src={thumbnail} data-bs-toggle="modal" data-bs-target={`#movieModal-${videoId}`} />
+                  <MovieModal videoId={videoId} />
+                </div>
+              </div>
             )
           })}
         </div>

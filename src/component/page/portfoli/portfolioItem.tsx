@@ -1,13 +1,17 @@
 
 import { MeeYohFile } from '@/utils/entity'
-import Image from 'next/image'
-import { MP4, PNG } from '@/utils/const'
+import MovieModal from "@/component/page/movieModal";
+import { MP4, PNG, YOUTUBE } from '@/utils/const'
 
 export default function PortfolioItem({portfolio}:{
     portfolio:MeeYohFile
 }) {
 
+    const videoId = portfolio.path
+    const thumbnail = portfolio.title
+
     return (  
+        
         <>
         <div className="col-lg-4 col-md-6 portfolio-item filter-app" key={portfolio.path}>
             <div className="portfolio-wrap">
@@ -16,8 +20,12 @@ export default function PortfolioItem({portfolio}:{
                 }          
                 {portfolio.type == MP4 &&
                     <video controls src={portfolio.path} className="img-fluid object-fit-cover"></video>
-
-                }          
+                    // 現状サムネがないからyoutubeと同じにできない
+                    // <>
+                    //     <img src={thumbnail} data-bs-toggle="modal" data-bs-target={`#movieModal-${videoId}`} />
+                    //     <MovieModal videoId={videoId} />
+                    // </>
+                }    
                 <div className="portfolio-info">
                     <h4>{portfolio.title}</h4>
                     <p>any description</p>
