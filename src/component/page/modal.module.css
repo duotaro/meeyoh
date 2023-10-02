@@ -1,0 +1,25 @@
+.modalItem {
+    width: 100%;
+    text-align: center;
+}
+
+  
+.modalItem.iframe {
+    width: 100%!important;
+    height: 100%!important;
+}
+
+.modalItem.content {
+    height:100%!important;
+}
+
+@media screen and (max-width:767px){
+    .content{
+        height:70vh !important;
+    }
+
+    .iframe {
+        width:100% !important;
+        height:70vh !important;
+    }
+}

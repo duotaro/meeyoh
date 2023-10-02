@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { getMeeYohPlayListItems, PlayListItem, PlayListItems, PlayListItemsResponse } from "@/lib/youtube";
-import MovieModal from "@/component/page/movieModal";
+import ContentModal from "@/component/page/contentModal";
 
 export default async function Video() {
   const playList:PlayListItems = await get();
@@ -13,7 +13,7 @@ export default async function Video() {
         return (
           <>
             <img src={thumbnail} data-bs-toggle="modal" data-bs-target={`#movieModal-${videoId}`} />
-            <MovieModal videoId={videoId} />
+            {/* <ContentModal videoId={videoId} /> */}
           </>
         )
     })}

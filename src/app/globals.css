@@ -766,6 +766,11 @@ section {
   transition: all 0.3s ease-in-out;
 }
 
+.portfolio .pottofolio-content {
+  width:100%;
+  aspect-ratio: 1.4;
+}
+
 .portfolio #portfolio-flters li:hover,
 .portfolio #portfolio-flters li.filter-active {
   color: #d43076;
@@ -784,7 +789,7 @@ section {
 
 .portfolio .portfolio-wrap::before {
   content: "";
-  background: rgba(44, 73, 100, 0.6);
+  /* background: rgba(44, 73, 100, 0.6); */
   position: absolute;
   left: 30px;
   right: 30px;

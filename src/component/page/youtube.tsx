@@ -1,6 +1,8 @@
 'use client'
 import Youtube, { YouTubeProps } from 'react-youtube'
 import { useState } from 'react'
+import styles from '@/component/page/modal.module.css'
+
 export class YoutubeOptionDetail {
     /** 最初の動画を自動再生するかどうか */
     autoplay:number = 0
@@ -9,8 +11,8 @@ export class YoutubeOptionDetail {
     disablekb:number = 1
     /** このパラメータの値を 1 に設定すると、IFrame または JavaScript Player API を呼び出してプレーヤーを制御できます。 */
     enablejsapi:number = 1
-    width:string = '640'
-    height:string = '360'
+    // width:string = '640'
+    // height:string = '360'
 
     constructor()
     constructor(obj:Object)
@@ -21,8 +23,8 @@ export class YoutubeOptionDetail {
             this.controls = 1
             this.disablekb = 1
             this.enablejsapi = 1
-            this.width = '640'
-            this.height = '360'
+            // this.width = '640'
+            // this.height = '360'
         }
     }
 }
@@ -64,6 +66,9 @@ export default function YoutubeItem({videoId, option}:{
 
     if (typeof window === 'object') {
         const audio:HTMLMediaElement = document.getElementById(id) as HTMLMediaElement
+        if(!audio){
+            return
+        }
         audio.volume = 0.25
 
         playingMusic = (e:any) => {
@@ -82,9 +87,9 @@ export default function YoutubeItem({videoId, option}:{
         <>
             {/* youtube */}
             <Youtube videoId={videoId} opts={option} id={videoId}
-                className="youtube" iframeClassName="iframe" 
+                className={`${styles.modal} text-center align-middle`} iframeClassName={styles.iframe}
                 onPlay={playingMusic} onPause={stopMusic} onEnd={stopMusic} />
             {/* music */}    
-            <video src={audioUrl} id={id}/>
+            <video src={audioUrl} id={id} style={{"display":"none"}}/>
         </>
 )}

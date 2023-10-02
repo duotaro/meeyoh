@@ -9,6 +9,7 @@ export class MeeYohFile {
     type: string = ''
     category: string[] = []
     title: string = ''
+    id: number = 0
 
 
     constructor(path: string);

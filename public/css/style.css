@@ -764,6 +764,7 @@ section {
 --------------------------------------------------------------*/
 .portfolio .portfolio-item {
   margin-bottom: 30px;
+  object-fit: cover;
 }
 
 .portfolio #portfolio-flters {
@@ -808,7 +809,7 @@ section {
 
 .portfolio .portfolio-wrap::before {
   content: "";
-  background: rgba(44, 73, 100, 0.6);
+  /* background: rgba(44, 73, 100, 0.6); */
   position: absolute;
   left: 30px;
   right: 30px;
