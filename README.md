@@ -38,3 +38,36 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 静止画はsupabase(1G)/firabase storage(5G)
 動画はcloudflare R2 (10G)
 でいけるかな
+
+
+
+
+
+
+## planetScale
+
+```bash
+$ brew install planetscale/tap/pscale
+$ brew install mysql-client
+$ pscale auth login
+```
+
+PlanetScale CLI を使って、ローカルマシンの 3309ポート(任意) に PlanetSclae への接続をプロキシし、ローカルマシンの 3309番ポートから PlanetScale に接続できるようにします
+```bash
+$ pscale connect {DB_NAME} main --port 3309
+```
+
+
+next/me-yo/prisma/schema.prisma を編集してmodel作成
+その後、以下を実行してPrisma のスキーマを PlanetScale に反映します
+
+```bash
+$ npx prisma db push
+```
+
+
+psclae shell コマンドでPlanetScale上で動作中のデータベースにアクセスし、スキーマが反映されたのを確認します
+
+```bash
+$ pscale shell {DB_NAME} main
+```

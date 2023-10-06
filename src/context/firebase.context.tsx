@@ -6,6 +6,7 @@ import { getAuth, User, onAuthStateChanged, Auth } from "firebase/auth";
 import { FirebaseStorage } from "firebase/storage";
 import Loading from "@/component/common/loading";
 import { FirebaseApp } from "firebase/app";
+import { CATEGORY_ALL } from "@/utils/const";
 
 type StateType = {
   firebase?: FirebaseApp | null;
@@ -13,6 +14,7 @@ type StateType = {
   firebaseStorage:FirebaseStorage | null;
   user: User | null;
   loading: boolean;
+  categoryFilter: string;
 };
 
 type ActionType = {
@@ -26,6 +28,7 @@ const initialState: StateType = {
   firebaseStorage: null,
   user: null,
   loading : false,
+  categoryFilter: CATEGORY_ALL
 };
 
 export const INIT_FIREBASE_APP =  'INIT_FIREBASE_APP';
@@ -36,6 +39,7 @@ export const SET_USER =  'SET_USER';
 export const SET_FIREBASE_AUTH = 'SET_FIREBASE_AUTH';
 export const SET_FIREBASE_STORAGE = 'SET_FIREBASE_STORAGE';
 export const SET_LOADING = 'SET_LOADING';
+export const SET_CATEGORY = 'SET_CATEGORY';
 
 const reducer = (state: StateType, action: ActionType) => {
   switch (action.type) {
@@ -55,6 +59,8 @@ const reducer = (state: StateType, action: ActionType) => {
         return { ...state, user: action.value } 
     case SET_LOADING:
         return { ...state, loading: action.value } 
+    case SET_CATEGORY:
+        return { ...state, categoryFilter: action.value } 
     default:
         return state;
   }

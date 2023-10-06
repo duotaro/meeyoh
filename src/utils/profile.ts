@@ -16,6 +16,7 @@ export class Profile {
     profession:string =  '保育園児'
     role:string =  'お姉ちゃん'
     birthday:Date = new Date()
+    height?:Object[] = []
     age?:number | undefined
     nextAge?:number | undefined
     lifeDays?:number | undefined
@@ -36,7 +37,8 @@ export const MEE_PROFILE:Profile = {
     text: '何か説明文的な？必要ないかな？',
     profession: '保育園児',
     role: 'お姉ちゃん',
-    birthday: MEE_BIRTHDAY ? new Date(MEE_BIRTHDAY) : new Date()
+    birthday: MEE_BIRTHDAY ? new Date(MEE_BIRTHDAY) : new Date(),
+    height: [{}]
 }
 
 export const YOH_PROFILE:Profile = {
@@ -51,7 +53,8 @@ export const YOH_PROFILE:Profile = {
     text: '何か説明文的な？必要ないかな？',
     profession: '保育園児',
     role: '弟',
-    birthday: YOH_BIRTHDAY ? new Date(YOH_BIRTHDAY) : new Date()
+    birthday: YOH_BIRTHDAY ? new Date(YOH_BIRTHDAY) : new Date(),
+    height: [{}]
 }
 
 export const getProfile = (name:string):Profile => {

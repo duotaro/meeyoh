@@ -1,0 +1,58 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  previewFeatures = ["referentialIntegrity"]
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("NEXT_PUBLIC_PLANET_SCALE_DATABASE_URL")
+  relationMode = "prisma"
+}
+
+model User {
+  id Int @default(autoincrement()) @id
+  name String
+  //todo Todo[] @relation("todo_fk_1")
+  //serStamps UserStamp[] @relation("user_stamp_fk_1")
+}
+
+model Stamp {
+  id Int @default(autoincrement()) @id
+  name String
+  path String 
+  //userStamps UserStamp[] @relation("user_stamp_fk_2")
+}
+
+model Todo {
+  id Int @default(autoincrement()) @id
+  title String @default("")
+  description String? @db.Text
+  user_id Int @default(0)
+  //user User @relation(name: "todo_fk_1", fields: [user_id], references: [id])
+  scheduled_at DateTime @default(now())
+  complete Boolean  @default(false)
+  completed_at DateTime? 
+  //userStamp UserStamp? @relation("user_stamp_fk_3")
+
+  @@index([user_id])
+  @@index([scheduled_at])
+}
+
+model UserStamp {
+  id Int @default(autoincrement()) @id
+  title String?
+  description String? @db.Text
+  user_id Int
+  //user User @relation(name: "user_stamp_fk_1", fields: [user_id], references: [id])
+  stamp_id Int
+  //stamp Stamp @relation(name: "user_stamp_fk_2", fields: [stamp_id], references: [id])
+  todo_id Int
+  //todo Todo @relation(name: "user_stamp_fk_3", fields: [todo_id], references: [id])
+  stamped_at DateTime @default(now())
+
+  @@index([user_id, stamp_id])
+  @@unique(fields:[todo_id], name:"todo_identifier")
+}

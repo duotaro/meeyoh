@@ -13,8 +13,8 @@ import {
  * ファイル名とカテゴリを定義します
  */
 export const fileNameList:MeeYohFile[] = [
-    {path:"video-99970fd8d3bc95c64c437e243e195c71.mp4", type:MP4, category:[CATEGORY_MEE, CATEGORY_VIDEO], title:'title1'},
-    {path:"screen.png", type:PNG,category:[CATEGORY_YOH, CATEGORY_IMAGE], title:'title2'}
+    new MeeYohFile("video-99970fd8d3bc95c64c437e243e195c71.mp4", [CATEGORY_MEE, CATEGORY_VIDEO], MP4, 'title1'),
+    new MeeYohFile("screen.png", [CATEGORY_YOH, CATEGORY_IMAGE], PNG, 'title2')
 ]
 
 /**

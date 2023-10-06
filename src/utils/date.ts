@@ -6,6 +6,17 @@ export const YYYY_MM_DD_FORMAT = 'YYYY-MM-DD';
 export const YYYY_MM_DD_JA_FORMAT = 'YYYY年M月D日';
 export const YYYY_MM_DD_SLASH_FORMAT = 'YYYY/MM/DD';
 export const YYYY_MM_DD_SLASH_PERIOD = 'YYYY.MM.DD';
+
+export function convertDateToString(date?:Date, format?:string){
+    if(!date) {
+        date = new Date()
+    }
+    if(!format) {
+        format = YYYY_MM_DD_FORMAT
+    }
+    return moment(date).format(format);
+}
+
 /**
  * 今日を取得します
  */

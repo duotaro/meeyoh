@@ -1,17 +1,21 @@
 'use client'
-import { FILE_CATEGORY, CATEGORY_ALL, MP4, YOUTUBE } from '@/utils/const'
-import { useState } from 'react'
+import { FILE_CATEGORY, CATEGORY_ALL, MP4, YOUTUBE, CATEGORY_VIDEO } from '@/utils/const'
+import { useState, useEffect } from 'react'
 import PortfolioItem from './portfolioItem';
 import { MeeYohFile } from '@/utils/entity';
 import { fileList } from '@/lib/cloudflare'
 import { PlayListItem } from "@/lib/youtube";
-import ContentModal from "@/component/page/contentModal";
+import { SET_CATEGORY, useFirebaseContext } from '@/context/firebase.context'
+
+
 
 export default function PortfolioList({list, playList}:{
   list:MeeYohFile[]
   playList:PlayListItem[]
 }) {
 
+    const { state } = useFirebaseContext()
+    
     const youtubeList = playList.map((p) => {
       var portfolio:MeeYohFile = new MeeYohFile(p.snippet.resourceId.videoId, [], p.snippet.thumbnails.medium.url, YOUTUBE)
       return portfolio
@@ -21,6 +25,7 @@ export default function PortfolioList({list, playList}:{
     const [portfolioList, setPortfolioList] = useState<MeeYohFile[]>(list);
     const [videoList, setVideoList] = useState<MeeYohFile[]>(fileList);
     const [youtubeItems, setYoutubeItems] = useState<MeeYohFile[]>(youtubeList);
+    const [showList, setShowList] = useState<boolean>(true);
 
     let all =  portfolioList.concat(videoList).concat(youtubeItems);
     all.map((item, index) => {
@@ -28,25 +33,42 @@ export default function PortfolioList({list, playList}:{
     })
 
     const [allList, setAllList] = useState<MeeYohFile[]>(all);
-    const [activeCategory, setActiveCategory] = useState<string>(CATEGORY_ALL);
+    const [activeCategory, setActiveCategory] = useState<string>(state.categoryFilter ?? CATEGORY_ALL);
+    
+
+    useEffect(() => {
+      setShowList(false)
+      filterList(state.categoryFilter)
+      setShowList(true)
+    }, [state]);
 
 
     const clickHandlerCategory = (e:React.MouseEvent<HTMLButtonElement>, category:string) => {
         e.preventDefault()
+        filterList(category)
+    }
 
-        alert("clickHandlerCategory.category => "  +  category)
+    const filterList = (category:string) => {
+
+        // alert("clickHandlerCategory.category => "  +  category)
 
         // リストフィルター
         if(FILE_CATEGORY.indexOf(category) < 0 || CATEGORY_ALL == category){
-          alert("nothing/"  +  category)
           setPortfolioList(list)
           setVideoList(fileList)
+          const youtubeList = playList.map((p) => {
+            var portfolio:MeeYohFile = new MeeYohFile(p.snippet.resourceId.videoId, [], p.snippet.thumbnails.medium.url, YOUTUBE)
+            return portfolio
+          })
+          setYoutubeItems(youtubeList)
           setActiveCategory(CATEGORY_ALL)
+          let all = concatAll(list, fileList, youtubeList)
+          setAllList(all)
           return
         }
 
-        setActiveCategory(category)
 
+        setActiveCategory(category)
         // 写真
         let resultPortfolioList:MeeYohFile[] = []
         list.map((portfolio) => {
@@ -69,7 +91,7 @@ export default function PortfolioList({list, playList}:{
         // youtube
         let resultYoutubeList:PlayListItem[] = []
         playList.map((youtube) => {
-          if(category == MP4){
+          if(category == CATEGORY_VIDEO){
             resultYoutubeList.push(youtube)
           }
         })
@@ -79,15 +101,20 @@ export default function PortfolioList({list, playList}:{
         })
         setYoutubeItems(youtubeList)
 
-        let all =  portfolioList.concat(videoList).concat(youtubeItems);
-        all.map((item, index) => {
-          item.id = index 
-        })
+        let all = concatAll(resultPortfolioList, resultVideoList, youtubeList)
         setAllList(all)
     }
 
+    const concatAll = (list1:MeeYohFile[], list2:MeeYohFile[], list3:MeeYohFile[]):MeeYohFile[] => {
+      let all =  list1.concat(list2).concat(list3);
+      all.map((item, index) => {
+        item.id = index 
+      })
+      return all
+    }
+
     const matchCategory = (category:string) => {
-        if(category == activeCategory){
+        if(category == state.categoryFilter){
             return true
         }
         return false
@@ -97,7 +124,7 @@ export default function PortfolioList({list, playList}:{
       <>
         <div className="row">
           <div className="col-lg-12 d-flex justify-content-center">
-            <ul id="portfolio-flters">
+            <ul id="portfolio-flters" data-type={state.categoryFilter}>
               {FILE_CATEGORY.map((category)=>{
                 return (
                   <li className={matchCategory(category) ? 'filter-active btn-group' : 'btn-group'} key={category}>
@@ -109,11 +136,14 @@ export default function PortfolioList({list, playList}:{
           </div>
         </div>
         <div className="row portfolio-container">
-          {allList.map((portfolio:MeeYohFile)=>{
+          {showList && allList.map((portfolio:MeeYohFile)=>{
             return (
               <PortfolioItem portfolio={portfolio} key={portfolio.path}/>
             )
           })}
+          {!allList.length && 
+            <p className='text-center '>該当するアイテムがありません</p>
+          }
 {/*           
 
           <div className="col-lg-4 col-md-6 portfolio-item filter-web">

@@ -1,22 +1,33 @@
-import { getAge, getNextBirthday, getLifeDays } from "@/utils/age"
+"use client"
+import { SET_CATEGORY, useFirebaseContext } from '@/context/firebase.context'
+import { CATEGORY_MEE, CATEGORY_YOH, MEE_NAME, YOH_NAME } from '@/utils/const';
 import { getProfile } from "@/utils/profile"
-import Image from "next/image"
+import Link from "next/link";
 
 export default function About({name}:{
   name:string
 }) {
 
-  // profileObj取得
-  const profile = getProfile(name)
+    const { dispatch } = useFirebaseContext()
+    // profileObj取得
+    const profile = getProfile(name)
 
-  const imageStyle = {
-    "background": `url(${profile.iconImg}) center center no-repeat;`,
-    "background-size": "cover;"
-  }
+    const imageStyle = {
+      "background": `url(${profile.iconImg}) center center no-repeat;`,
+      "background-size": "cover;"
+    }
+
+    const setCategory = () => {
+      if(name == MEE_NAME){
+        dispatch({type: SET_CATEGORY, value: CATEGORY_MEE})
+      } else if (name == YOH_NAME){
+        dispatch({type: SET_CATEGORY, value: CATEGORY_YOH})
+      }
+    }
 
     return (
-      <section id={`about-${name}`} className={`about`} >
-        <div className="container bg-image p-0 m-0">
+      <section id={`about-${name}`} className={`about p-md-5 p-1 `} >
+        <div className="container bg-image p-0 " style={{"margin":"0 auto"}}>
           {/* <span className={`mask  ${profile.overlayColor}`} style={{opacity:'0.1'}}></span> */}
           <div className={`row no-gutters w-100 m-0`}>
             {/* <span className={`mask opacity-25 ${profile.overlayColor}`} style={{opacity:'0.1'}}></span> */}
@@ -24,7 +35,7 @@ export default function About({name}:{
             </div>
             <div className="col-xl-7 ps-lg-5 pe-lg-1 d-flex align-items-stretch">
               <div className="content d-flex flex-column justify-content-center">
-                <h3>{profile.name_english}</h3>
+                <h3><Link href={`/detail/${name}/`}>{profile.name_english}</Link></h3>
                 <p>
                 {profile.profession} / {profile.role}
                 </p>
@@ -55,9 +66,11 @@ export default function About({name}:{
   
                   <div className="col-md-6 d-md-flex align-items-md-stretch">
                     <div className="count-box">
-                      <i className="bi bi-award"></i>
-                      <span data-purecounter-start="0" data-purecounter-end="15" data-purecounter-duration="1" className="purecounter"></span>
-                      <p><strong>Awards</strong> rerum asperiores dolor alias quo reprehenderit eum et nemo pad der</p>
+                      <a href={`#portfolio`} onClick={setCategory}>
+                        <i className="bi bi-camera"></i>
+                        {/* <span data-purecounter-start="0" data-purecounter-end="15" data-purecounter-duration="1" className="purecounter"></span> */}
+                        <p><strong>写真・動画</strong>を見る</p>
+                      </a>
                     </div>
                   </div>
                 </div>

@@ -54,9 +54,12 @@ export default function YoutubeItem({videoId, option}:{
     }
 
     // 音源、youtubeにしようとしたけど難しそう
+    // TODO 音源取得
+    // useState使って、すでにあったら取得しない
     var audioUrl = "/music/Morning.mp3"
     // 音源リストここで選択肢を設ける？
 
+    // いらないかも
     const [playing, setPlaying] = useState<boolean>(false);
 
     const id = `audio_${videoId}`
@@ -87,9 +90,11 @@ export default function YoutubeItem({videoId, option}:{
         <>
             {/* youtube */}
             <Youtube videoId={videoId} opts={option} id={videoId}
-                className={`${styles.modal} text-center align-middle`} iframeClassName={styles.iframe}
+                className={`${styles.modalItem}`} iframeClassName={styles.iframe}
                 onPlay={playingMusic} onPause={stopMusic} onEnd={stopMusic} />
-            {/* music */}    
+            {/* music */}
+            {/* youtube動画に合わせて音楽を流す */}
+            {/* youtubeの動画に音楽をつけるのが普通だけど、他のケースを試してみた */}
             <video src={audioUrl} id={id} style={{"display":"none"}}/>
         </>
 )}

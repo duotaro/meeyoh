@@ -4,22 +4,21 @@
 }
 
   
-.modalItem.iframe {
+.modalItem .iframe {
     width: 100%!important;
-    height: 100%!important;
+    height:90vh!important;
 }
 
 .modalItem.content {
-    height:100%!important;
+    height:100vh!important;
 }
 
 @media screen and (max-width:767px){
-    .content{
-        height:70vh !important;
+    .modalItem.content{
+        height:90vh !important;
     }
 
-    .iframe {
+    .modalItem .iframe {
         width:100% !important;
-        height:70vh !important;
     }
 }

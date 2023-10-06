@@ -11,7 +11,9 @@ export default async function Home() {
   return (
     <>
         <Welcom />
-        <section id="about" className="about">
+        
+        <section id="about" className="about " >
+          
           <About name={MEE_NAME}/>
           <About name={YOH_NAME}/>
         </section>
